@@ -175,3 +175,10 @@ p.author a {
 .login-form button {
   align-self: center;
 }
+
+
+
+.hidden {
+  display: none;
+}
+

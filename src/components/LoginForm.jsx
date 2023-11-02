@@ -1,30 +1,39 @@
-// LoginForm.js
 import React, { Component } from 'react';
- 
 
 class LoginForm extends Component {
   constructor() {
     super();
     this.state = {
-      username: '',
-      password: '',
+      users: [
+        { username: 'Ed', password: '2' },
+        { username: 'Edd', password: '3' },
+        { username: 'Eddie', password: '5' },
+      ],
+      currentUser: {
+        username: '',
+        password: '',
+      },
     };
   }
 
   handleChange = (event) => {
     const { name, value } = event.target;
-    this.setState({
-      [name]: value,
-    });
+    this.setState((prevState) => ({
+      currentUser: {
+        ...prevState.currentUser,
+        [name]: value,
+      },
+    }));
   }
 
   handleSubmit = (event) => {
     event.preventDefault();
-    const { username, password } = this.state;
+    const { username, password } = this.state.currentUser;
+    const isValid = this.state.users.some(
+      (user) => user.username === username && user.password === password
+    );
 
-    // Comprueba las credenciales (usuario y contraseña)
-    if (username === 'Eduardo' && password === '666') {
-      // Credenciales válidas, llama a la función setIsValid para cambiar el estado en App
+    if (isValid) {
       this.props.setIsValid(true);
     } else {
       alert('Credenciales incorrectas. Inténtalo de nuevo.');
@@ -41,16 +50,16 @@ class LoginForm extends Component {
             <input
               type="text"
               name="username"
-              value={this.state.username}
+              value={this.state.currentUser.username}
               onChange={this.handleChange}
             />
           </div>
           <div>
             <label className='login-form'>Contraseña:</label>
-            <input className='login-form'
+            <input
               type="password"
               name="password"
-              value={this.state.password}
+              value={this.state.currentUser.password}
               onChange={this.handleChange}
             />
           </div>
@@ -60,7 +69,5 @@ class LoginForm extends Component {
     );
   }
 }
-
-
 
 export default LoginForm;

@@ -46,9 +46,7 @@ const FormAddSubs = ({ setType,
      
         setType("");
         setPrice("");
-        //console.log(subs);
-        //console.log(type);
-        //console.log(price);
+
     }
 
     return ( 
